@@ -11,9 +11,9 @@
 
 using namespace CUDAPlugin;
 
-Configuration::Configuration() { }
+Configuration::Configuration() {}
 
-Configuration::Configuration(const ConfigMap& config, const Configuration & defaultCfg, bool throwOnUnsupported) {
+Configuration::Configuration(const ConfigMap& config, const Configuration& defaultCfg, bool throwOnUnsupported) {
     *this = defaultCfg;
     // If plugin needs to use InferenceEngine::StreamsExecutor it should be able to process its configuration
     auto streamExecutorConfigKeys = streams_executor_config_.SupportedKeys();
@@ -41,18 +41,16 @@ Configuration::Configuration(const ConfigMap& config, const Configuration & defa
         } else if (CONFIG_KEY(DEVICE_ID) == key) {
             deviceId = std::stoi(value);
             if (deviceId > 0) {
-                throwIEException(
-                    fmt::format("Device ID {} is not supported", deviceId));
+                throwIEException(fmt::format("Device ID {} is not supported", deviceId));
             }
         } else if (CUDA_CONFIG_KEY(OPERATION_BENCHMARK) == key) {
-          if (value == CUDA_CONFIG_VALUE(YES)) {
-              operation_benchmark = true;
-          } else if (value == CUDA_CONFIG_VALUE(NO)) {
-              operation_benchmark = false;
-          } else {
-              throwIEException(fmt::format(
-                  "operation benchmark option value {} is not supported", value));
-          }
+            if (value == CUDA_CONFIG_VALUE(YES)) {
+                operation_benchmark = true;
+            } else if (value == CUDA_CONFIG_VALUE(NO)) {
+                operation_benchmark = false;
+            } else {
+                throwIEException(fmt::format("operation benchmark option value {} is not supported", value));
+            }
         } else if (CUDA_CONFIG_KEY(DISABLE_TENSORITERATOR_TRANSFORM) == key) {
             if (value == CUDA_CONFIG_VALUE(YES)) {
                 disabled_tensoriterator_transform = true;
