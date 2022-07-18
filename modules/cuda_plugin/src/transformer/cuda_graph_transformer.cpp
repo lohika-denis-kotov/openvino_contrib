@@ -135,11 +135,12 @@ std::shared_ptr<ngraph::Function> GraphTransformer::transform(const CUDA::Device
     }
     manager.register_pass<ngraph::pass::ConvolutionAsymPaddingTransformation>();
     manager.register_pass<ngraph::pass::GroupConvolutionAsymPaddingTransformation>();
-    manager.register_pass<ngraph::pass::ConvBackpropDataAsymPaddingTransformation>();
-    manager.register_pass<ngraph::pass::GroupConvBackpropDataAsymPaddingTransformation>();
     manager.register_pass<ngraph::pass::CudaFuseConvBiasAddActivation>();
     manager.register_pass<ngraph::pass::CudaFuseGroupConvBiasAddActivation>();
     manager.register_pass<ngraph::pass::CudaFuseConvBackpropDataAdd>();
+    manager.register_pass<ngraph::pass::ConvolutionBackpropDataAsymPaddingTransformation>();
+    manager.register_pass<ngraph::pass::GroupConvolutionBackpropDataAsymPaddingTransformation>();
+    manager.register_pass<ngraph::pass::FusedConvBackpropDataAsymPaddingTransformation>();
     manager.register_pass<ngraph::pass::TransposeMatMulTransformation>();
     manager.register_pass<ngraph::pass::FullyConnectedTransformation>();
     manager.register_pass<ngraph::pass::ConcatTransformation>();
